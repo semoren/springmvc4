@@ -4,10 +4,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+
+import com.sermo.springmvc4.interceptor.DemoInterceptor;
 
 @Configuration
 @EnableWebMvc
@@ -22,6 +25,11 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter{
 		return viewResolver;
 	}
 	
+	@Bean
+	public DemoInterceptor demoInterceptor(){
+		return new DemoInterceptor();
+	}
+	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		/**
@@ -29,5 +37,13 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter{
 		 * addResourceLocations 指的是对外暴露的访问路径
 		 */
 		registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/assest/");
+	}
+	
+	/**
+	 * 重写 addInterceptors 方法来注册自定义的拦截器
+	 */
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(demoInterceptor());
 	}
 }
