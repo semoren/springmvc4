@@ -19,5 +19,9 @@
 ####4.5 Spring MVC 的高级配置
 #####4.5.1 文件上传配置
 #####4.5.2 自定义 HttpMessageConverter
+HttpMessageConverter 是用来处理 request 和 response 里的数据的<br>
+* readInternal 方法处理请求前的数据
+* writeInternal 方法处理返回数据
+	
 #####4.5.3 服务器端推送技术
 ####4.6 Spring MVC 的测试
